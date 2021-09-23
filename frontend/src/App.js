@@ -34,22 +34,22 @@ function App() {
     <div className="App">
       {userObj?.email ? (
         <Switch>
-          <Route path="/" exact={true} userObj={userObj}>
-            <Main />
+          <Route path="/" exact={true}>
+            <Main userObj={userObj} />
           </Route>
-          <Route path="/search" exact={true} userObj={userObj}>
-            <SearchStudy />
+          <Route path="/search" exact={true}>
+            <SearchStudy userObj={userObj} />
           </Route>
-          <Route path="/study/create" exact={true} userObj={userObj}>
-            <CreateStudy />
+          <Route path="/study/create" exact={true}>
+            <CreateStudy userObj={userObj} />
           </Route>
-          <Route path="/study/:id" exact={true} userObj={userObj}>
-            <GroupDetail />
+          <Route path="/study/:id" exact={true}>
+            <GroupDetail userObj={userObj} />
           </Route>
         </Switch>
       ) : userObj ? (
         <Switch>
-          <Route path="/signin" exact={true} component={SignIn} />
+          <Route path="/signin" exact={true} component={SignIn} userObj={userObj} />
           <Redirect from="*" to="/signin" />
         </Switch>
       ) : (
