@@ -64,9 +64,17 @@ const updateTeam = async (req, res, next) => {
 
 const searchTeams = async (req, res, next) => {
     try{
+        
         let title = req.query["title"];
-        if(title === undefined) title = '';
-        const teams = await Team.find({title:  new RegExp(`${title}`,'i')}).exec();
+        let userId = req.query["userId"];
+        let teams;
+
+        if(title !== undefined && userId === undefined) teams = await Team.find({title:  new RegExp(`${title}`,'i')}).exec();
+        else if(title === undefined && userId !== undefined) teams = await Team.find({userIds : [`${userId}`]}).exec();
+        else if(title === undefined && userId === undefined) teams = await Team.find({});
+        else{
+            throw new Error("query로 보내는 변수가 잘못되었습니다.");
+        }
 
         await res.status(200).json({
             code: '2000',
@@ -80,7 +88,7 @@ const searchTeams = async (req, res, next) => {
         await res.status(500).json({
             code: '5000',
             status: '에러 : 서버 에러',
-            message : '검색 요청 처리 중 서버에서 문제가 발생했습니다.'
+            message : `${err}`
         });
     }
 };
