@@ -87,7 +87,7 @@ router.get('/:userId/commits', async (req, res) => {
 	const githubId = req.params.userId;
 	
 	try{
-		const data = await githubService.getCommitCounts(githubId);
+		const data = await githubService.getCommitCountsForMonth(githubId);
 
 		res.json(data);
 	}
