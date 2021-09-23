@@ -1,1 +1,6 @@
+## 설치된 npm package 제외
 node_modules/
+package-lock.json
+
+## 환경변수 제외
+.env
