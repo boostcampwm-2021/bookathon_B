@@ -41,7 +41,10 @@ const SearchResultCard = (props) => {
         <SubText>{props.data.count}</SubText>
         {props.data.isPrivate ? <AiFillLock size="24" /> : null}
       </div>
-      <GroupJoinButton />
+      <GroupJoinButton
+        password={props.data.password}
+        isPrivate={props.data.isPrivate}
+      />
     </CardWrapper>
   );
 };
