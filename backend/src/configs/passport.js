@@ -1,16 +1,27 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github');
+const User = require('../models/user.js');
 
     
 const githubLoginCallback = async (accessToken, refreshToken, profile, done) => {
     const {
-        _json: { 
-            id 
-        }
-    } = profile;
+        login: githubId
+    } = profile._json;
     
+        
     try {
-        return done(null, id);  
+        let user = await User.findOne({ githubId }).exec();
+        
+        
+        if (!user) {
+            user = await User.create({
+                githubId
+            });
+            
+            return done(null, user);
+        }
+        
+        return done(null, user);
     }
     catch(error){
         return done(error);
