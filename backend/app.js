@@ -6,7 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 
 // env 파일의 변수들을 환경변수(process.env)로 등록해줌
-require("dotenv").config({path: path.join(__dirname, "/envs/passport.env")});
+require("dotenv").config();
 
 const indexRouter = require('./src/routes/index');
 const userRouter = require('./src/routes/user');
