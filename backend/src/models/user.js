@@ -6,8 +6,7 @@ const userSchema = new Schema({
         nickName: String,
         email: String,
         teamIds: Array,
-        oauthToken : String,
-        githubId: String
+        githubId : String,
 });
 
 module.exports = mongoose.model('User', userSchema);
