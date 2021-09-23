@@ -1,0 +1,11 @@
+{
+  "name": "bookathon_b",
+  "version": "1.0.0",
+  "repository": "https://github.com/boostcampwm-2021/bookathon_B",
+  "license": "MIT",
+  "private": "true",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
