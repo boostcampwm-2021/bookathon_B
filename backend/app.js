@@ -12,6 +12,7 @@ const indexRouter = require('./src/routes/index');
 const userRouter = require('./src/routes/user');
 const authRouter = require('./src/routes/auth');
 const teamRouter = require('./src/routes/team');
+const mailRouter = require('./src/routes/mail');
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/study',teamRouter);
+app.use('/mail',mailRouter);
 
 module.exports = app;
