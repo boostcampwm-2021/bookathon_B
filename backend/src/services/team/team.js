@@ -93,4 +93,53 @@ const searchTeams = async (req, res, next) => {
     }
 };
 
-module.exports = { createTeam, deleteTeam, updateTeam, searchTeams };
+const enterTeam = async (req,res,next) => {
+    try{
+        const teamId = req.query['teamId'];
+        const userId = req.query['userId'];
+        const team = await Team.findById(teamId);
+        const userIds = [...team.userIds];
+        userIds.push(userId);
+        team.userIds = userIds;
+        team.save();
+        await res.status(200).json({
+            code: '2000',
+            status: '성공 : Team 입장',
+            message: 'User가 Team에 정상적으로 입장하였습니다.'
+        });
+    }
+    catch(err){
+        console.error(err);
+        await res.status(500).json({
+            code: '5000',
+            status: '에러 : 서버 에러',
+            message : `${err}`
+        });
+    }
+};
+
+const exitTeam = async (req,res,next) => {
+    try{
+        const teamId = req.query['teamId'];
+        const userId = req.query['userId'];
+        const team = await Team.findById(teamId);
+        const userIds = [...team.userIds];
+        team.userIds = userIds.filter(el => el !== userId);
+        team.save();
+        await res.status(200).json({
+            code: '2000',
+            status: '성공 : Team 퇴장',
+            message: 'User가 Team에 정상적으로 퇴장하였습니다.'
+        });
+    }
+    catch(err){
+        console.error(err);
+        await res.status(500).json({
+            code: '5000',
+            status: '에러 : 서버 에러',
+            message : `${err}`
+        });
+    }
+};
+
+module.exports = { createTeam, deleteTeam, updateTeam, searchTeams, enterTeam, exitTeam };
