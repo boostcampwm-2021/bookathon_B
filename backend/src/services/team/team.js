@@ -62,8 +62,10 @@ const updateTeam = async (req, res, next) => {
 
 const searchTeams = async (req, res, next) => {
     try{
-        const title = req.query["title"];
-        const teams = await Team.find({title: `/${title}/gi`}).exec();
+        let title = req.query["title"];
+        if(title === undefined) title = ''; 
+        const teams = await Team.find({title:  new RegExp(`${title}`,'i')}).exec();
+
         await res.status(200).json({
             code: '2000',
             status: '성공 : Team 검색',
@@ -80,3 +82,5 @@ const searchTeams = async (req, res, next) => {
         });
     }
 };
+
+module.exports = { createTeam, deleteTeam, updateTeam, searchTeams };
