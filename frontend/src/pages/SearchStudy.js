@@ -1,7 +1,12 @@
 import React from "react";
+import SearchBar from "../components/SearchBar";
 
 const SearchStudy = () => {
-  return <div>search</div>;
+  return (
+    <div>
+      <SearchBar />
+    </div>
+  );
 };
 
 export default SearchStudy;
