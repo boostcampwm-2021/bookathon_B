@@ -10,7 +10,10 @@ router.get('/github', passport.authenticate("github", {
 }))
 
 router.get('/github/callback', 
-	passport.authenticate('github', { failureRedirect: '/'}),
+	passport.authenticate('github', {
+		failureRedirect: "/",
+		scope: [ 'repo', 'user:login' ]
+	}),
 	(req, res) => {
 		req.session.save(() => {
 			const user = req.user;
