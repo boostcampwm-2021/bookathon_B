@@ -62,9 +62,21 @@ const updateTeam = async (req, res, next) => {
 
 const searchTeams = async (req, res, next) => {
     try{
-
+        const title = req.query["title"];
+        const teams = await Team.find({title: `/${title}/gi`}).exec();
+        await res.status(200).json({
+            code: '2000',
+            status: '성공 : Team 검색',
+            message: 'Team이 정상적으로 검색되었습니다.',
+            study: teams
+        });
     }
     catch{
-
+        console.error(err);
+        await res.status(500).json({
+            code: '5000',
+            status: '에러 : 서버 에러',
+            message : '검색 요청 처리 중 서버에서 문제가 발생했습니다.'
+        });
     }
 };
