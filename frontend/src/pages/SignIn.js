@@ -28,13 +28,40 @@ const MainForm = styled.form`
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
+
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "nickname") {
+      setNickName(value);
+    }
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await fetch("user/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({ email, nickName }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <MainLogo />
-      <MainForm>
-        <input placeholder="Enter Email Address" />
-        <input placeholder="Enter Your Nickname" />
-        <button>Sign In Jandi-Jandi</button>
+      <MainForm onSubmit={onSubmit}>
+        <input name="email" type="email" placeholder="Enter Email Address" required value={email} onChange={onChange} />
+        <input name="nickname" placeholder="Enter Your Nickname" required value={nickName} onChange={onChange} />
+        <button type="submit">Sign In Jandi-Jandi</button>
       </MainForm>
     </div>
   );
