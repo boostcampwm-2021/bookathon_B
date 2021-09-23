@@ -8,7 +8,7 @@ import GroupDetail from "./pages/GroupDetail";
 import FirstPage from "./pages/FirstPage";
 
 function App() {
-  let isLoggedIn = false; // 로그인  API 받고 나서 바꾸기
+  let isLoggedIn = true; // 로그인  API 받고 나서 바꾸기
   return (
     <div className="App">
       {isLoggedIn ? (
