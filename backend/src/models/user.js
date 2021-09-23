@@ -7,6 +7,7 @@ const userSchema = new Schema({
         email: String,
         teamIds: Array,
         githubId : String,
+        accessToken: String
 });
 
 module.exports = mongoose.model('User', userSchema);

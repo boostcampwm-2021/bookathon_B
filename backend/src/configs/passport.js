@@ -15,10 +15,13 @@ const githubLoginCallback = async (accessToken, refreshToken, profile, done) => 
         
         if (!user) {
             user = await User.create({
-                githubId
+                githubId,
+                accessToken
             });
-            
-            return done(null, user);
+        }
+        else if (user.accessToken !== accessToken) {
+            user.accessToken = accessToken;
+            await user.save()
         }
         
         return done(null, user);
