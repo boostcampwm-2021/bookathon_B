@@ -7,6 +7,7 @@ const teamSchema = new Schema({
         password: String,
         details: String,
         userIds: Array,
+        isLocked: Boolean
 });
 
 module.exports = mongoose.model('Team', teamSchema);
