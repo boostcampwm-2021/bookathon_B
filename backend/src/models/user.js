@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-        userId: Number,
         nickName: String,
         email: String,
+        teamIds: Array,
         oauthToken : String,
 });
 
