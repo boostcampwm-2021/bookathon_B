@@ -20,6 +20,7 @@ function App() {
       } catch (error) {
         console.error(error);
         // newObj = { email: "dummy@dummy.com", nickName: "prettyDummy" };
+        newObj = { email: null, nickName: null };
       }
       if (newObj) setUserObj(newObj);
     };
@@ -31,7 +32,7 @@ function App() {
   }
   return (
     <div className="App">
-      {userObj ? (
+      {userObj?.email ? (
         <Switch>
           <Route path="/" exact={true} userObj={userObj}>
             <Main />
@@ -46,10 +47,14 @@ function App() {
             <GroupDetail />
           </Route>
         </Switch>
+      ) : userObj ? (
+        <Switch>
+          <Route path="/signin" exact={true} component={SignIn} />
+          <Redirect from="*" to="/signin" />
+        </Switch>
       ) : (
         <Switch>
           <Route path="/" exact={true} component={FirstPage} />
-          <Route path="/signin" exact={true} component={SignIn} />
           <Redirect from="*" to="/" />
         </Switch>
       )}
