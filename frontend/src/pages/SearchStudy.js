@@ -23,6 +23,7 @@ const SearchStudy = () => {
       const result = [
         // 여기 나중에 API 호출하기!
         {
+          id: 1,
           title: "잔디잔디",
           description: "잔디를 길러봐",
           isPrivate: true,
@@ -30,6 +31,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
+          id: 2,
           title: "잔디잔디잔디",
           description: "잔디를 길러봐?",
           isPrivate: false,
@@ -37,6 +39,7 @@ const SearchStudy = () => {
           password: null,
         },
         {
+          id: 3,
           title: "잔디잔",
           description: "잔디를 길러봐앙",
           isPrivate: true,
@@ -44,6 +47,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
+          id: 4,
           title: "잔잔디디",
           description: "잔디를 길러봐아아?",
           isPrivate: false,
@@ -51,6 +55,7 @@ const SearchStudy = () => {
           password: null,
         },
         {
+          id: 5,
           title: "디잔디",
           description: "잔디를 길러봐ba",
           isPrivate: true,
@@ -58,6 +63,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
+          id: 6,
           title: "잔잔잔",
           description: "잔디를 길러봐bwa?",
           isPrivate: false,
@@ -80,7 +86,9 @@ const SearchStudy = () => {
       ) : null}
       <CardContainer>
         {searchResult
-          ? searchResult.map((result) => <SearchResultCard data={result} />)
+          ? searchResult.map((result) => (
+              <SearchResultCard key={result.id} data={result} />
+            ))
           : null}
       </CardContainer>
     </div>
