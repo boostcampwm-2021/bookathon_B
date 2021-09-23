@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Switch, Redirect } from "react-router-dom";
+import Main from "./pages/Main";
+import SignIn from "./pages/SignIn";
+import SearchStudy from "./pages/SearchStudy";
+import CreateStudy from "./pages/CreateStudy";
+import GroupDetail from "./pages/GroupDetail";
+import FirstPage from "./pages/FirstPage";
 
 function App() {
+  let isLoggedIn = false; // 로그인  API 받고 나서 바꾸기
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isLoggedIn ? (
+        <Switch>
+          <Route path="/" exact={true} component={Main} />
+          <Route path="/search" exact={true} component={SearchStudy} />
+          <Route path="/study/create" exact={true} component={CreateStudy} />
+          <Route path="/study/:id" exact={true} component={GroupDetail} />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route path="/" exact={true} component={FirstPage} />
+          <Route path="/signin" exact={true} component={SignIn} />
+          <Redirect from="*" to="/" />
+        </Switch>
+      )}
     </div>
   );
 }
