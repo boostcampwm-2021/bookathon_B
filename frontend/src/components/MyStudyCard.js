@@ -35,7 +35,7 @@ const Icons = styled.div`
 const MyStudyCard = ({ studyObj }) => {
   return (
     <Card>
-      <Link to={`/study/:${studyObj._id}`}>{studyObj.title}</Link>
+      <Link to={`/study/${studyObj._id}`}>{studyObj.title}</Link>
       <p>{studyObj.details}</p>
       <Icons>
         <MdPeopleOutline size="18" />
