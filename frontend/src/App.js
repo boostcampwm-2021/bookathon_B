@@ -19,8 +19,8 @@ function App() {
         newObj = await (await fetch("/user")).json();
       } catch (error) {
         console.error(error);
-        // newObj = { email: "dummy@dummy.com", nickName: "prettyDummy" };
-        newObj = { email: null, nickName: null };
+        newObj = { email: "dummy@dummy.com", nickName: "prettyDummy", userId: "haesoo9410" };
+        // newObj = { email: null, nickName: null };
       }
       if (newObj) setUserObj(newObj);
     };
