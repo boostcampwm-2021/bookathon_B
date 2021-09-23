@@ -47,7 +47,7 @@ function App() {
             <GroupDetail userObj={userObj} />
           </Route>
         </Switch>
-      ) : userObj ? (
+      ) : userObj?.userId ? (
         <Switch>
           <Route path="/signin" exact={true} component={SignIn} userObj={userObj} />
           <Redirect from="*" to="/signin" />
