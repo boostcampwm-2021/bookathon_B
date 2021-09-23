@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../services/user.js');
+const githubService = require('../services/github.js');
 
 
 const validateEmail = (email) => {
@@ -25,16 +26,17 @@ const validateNickName = (nickName) => {
 
 router.get('/', (req, res) => {
 	const data = {
-		isLogin: false,
-		user: null,
+		email: null,
+		nickName: null,
+		userId: null
 	};
 	
 	if (req.user) {
 		data.isLogin = true;
 		const {
-			email = null, nickName = null
+			email, nickName, githubId: userId
 		} = req.user;
-		data.user = { email, nickName };
+		data = { email, nickName, userId };
 		
 		res.json(data);
 	}
@@ -72,13 +74,27 @@ router.post('/edit', async (req, res) => {
 	
 	req.login(user, (err) => {
 		if (!err){
-			const data = { email, nickName };
+			const data = { email, nickName, userId: user.githubId };
 			
 			return res.json(data);
 		}
 		
 		res.send(err);
 	});
+})
+
+router.get('/:userId/commits', async (req, res) => {
+	const githubId = req.params.userId;
+	
+	try{
+		const data = await githubService.getCommitCounts(githubId);
+
+		res.json(data);
+	}
+	catch(err) {
+		res.status(400).send(err.message);
+	}
+	
 })
 
 module.exports = router;
