@@ -11,6 +11,7 @@ require("dotenv").config();
 const indexRouter = require('./src/routes/index');
 const userRouter = require('./src/routes/user');
 const authRouter = require('./src/routes/auth');
+const teamRouter = require('./src/routes/team');
 
 const app = express();
 
@@ -29,5 +30,6 @@ require('./src/configs/passport')();
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
+app.use('/study',teamRouter);
 
 module.exports = app;
