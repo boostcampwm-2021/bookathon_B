@@ -28,7 +28,7 @@ const SearchResultCard = (props) => {
   return (
     <CardWrapper>
       <TitleText>{props.data.title}</TitleText>
-      <SubText>{props.data.description}</SubText>
+      <SubText>{props.data.details}</SubText>
       <div
         style={{
           display: "flex",
@@ -38,12 +38,12 @@ const SearchResultCard = (props) => {
         }}
       >
         <BsPeople size="24" />
-        <SubText>{props.data.count}</SubText>
-        {props.data.isPrivate ? <AiFillLock size="24" /> : null}
+        <SubText>{props.data.userIds.length}</SubText>
+        {props.data.isLocked ? <AiFillLock size="24" /> : null}
       </div>
       <GroupJoinButton
         password={props.data.password}
-        isPrivate={props.data.isPrivate}
+        isPrivate={props.data.isLocked}
       />
     </CardWrapper>
   );
