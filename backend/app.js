@@ -25,15 +25,15 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(session({secret: '1q2w3e4r', resave:true, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./src/configs/passport')();
+require('./src/configs/passport.js')();
 
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/study',teamRouter);
 app.use('/mail',mailRouter);
-// app.use('/', indexRouter);
-app.all('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+
+app.use('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 })
 
 module.exports = app;
