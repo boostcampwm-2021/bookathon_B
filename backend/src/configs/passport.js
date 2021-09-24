@@ -4,14 +4,10 @@ const User = require('../models/user.js');
 
     
 const githubLoginCallback = async (accessToken, refreshToken, profile, done) => {
-    const {
-        login: githubId
-    } = profile._json;
+    const { login: githubId } = profile._json;
     
-        
     try {
         let user = await User.findOne({ githubId }).exec();
-        
         
         if (!user) {
             user = await User.create({
