@@ -24,12 +24,15 @@ const InputButton = styled.button`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   const [text, setText] = useState("");
-  const [url, setUrl] = useState("/search");
+
   const onChange = (e) => {
     setText(e.target.value);
-    setUrl(`/search?q=${text}`);
+  };
+
+  const handleSubmit = (e) => {
+    props.setTitle(text);
   };
 
   return (
@@ -40,9 +43,7 @@ const SearchBar = () => {
         onChange={onChange}
         value={text}
       />
-      <Link to={url}>
-        <InputButton>검색</InputButton>
-      </Link>
+      <InputButton onClick={handleSubmit}>검색</InputButton>
     </div>
   );
 };

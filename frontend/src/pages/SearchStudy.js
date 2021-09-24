@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
-import { useLocation } from "react-router";
 import SearchResultCard from "../components/SearchResultCard";
 import styled from "styled-components";
-
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-
-const SearchStudy = ({ userObj }) => {
-  const location = useLocation();
-  const query = location.search;
-  const parsedQuery = new URLSearchParams(query);
-  const searchWord = parsedQuery.get("q");
-
+const SearchStudy = () => {
   const [searchResult, setSearchResult] = useState([]);
-
+  const [title, setTitle] = useState("");
   useEffect(() => {
     function getResult() {
       const result = [
@@ -74,15 +66,21 @@ const SearchStudy = ({ userObj }) => {
       setSearchResult(result);
     }
     getResult();
-  }, []);
-
+  }, [title]);
   return (
     <div style={{ marginTop: "50px", marginBottom: "50px" }}>
-      <SearchBar />
-      {searchWord ? <div style={{ marginTop: "20px" }}>{searchWord}에 대한 검색 결과입니다.</div> : null}
-      <CardContainer>{searchResult ? searchResult.map((result) => <SearchResultCard key={result._id} data={result} userObj={userObj} />) : null}</CardContainer>
+      <SearchBar setTitle={setTitle} />
+      {title ? (
+        <div style={{ marginTop: "20px" }}>{title}에 대한 검색 결과입니다.</div>
+      ) : null}
+      <CardContainer>
+        {searchResult
+          ? searchResult.map((result) => (
+              <SearchResultCard key={result._id} data={result} />
+            ))
+          : null}
+      </CardContainer>
     </div>
   );
 };
-
 export default SearchStudy;
