@@ -69,6 +69,10 @@ const GroupCommitTable = (props) => {
     getResult();
   }, []);
 
+  const handleSelect = (e) => {
+    props.setSelectedUser(e.target.alt);
+  };
+
   return (
     <div
       style={{
@@ -87,10 +91,20 @@ const GroupCommitTable = (props) => {
           return (
             <TableColumn
               key={result.username}
-              style={result.commit === 0 ? { color: "#F15C5C" } : {}}
+              style={
+                result.userid === props.selectedUser
+                  ? { color: "#DCF9E4" }
+                  : result.commit === 0
+                  ? { color: "#F15C5C" }
+                  : {}
+              }
             >
               <div>
-                <img src={imageUrl} alt={result.userId} />
+                <img
+                  src={imageUrl}
+                  alt={result.userid}
+                  onClick={handleSelect}
+                />
                 <div>{result.username}</div>
               </div>
               <div>{result.commit}</div>
