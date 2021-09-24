@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import MainLogo from "../components/MainLogo";
 import { AiFillGithub } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
-const LoginBtn = styled(Link)`
+const LoginBtn = styled.button`
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -16,14 +15,20 @@ const LoginBtn = styled(Link)`
   border-style: none;
   background-color: #68a375;
   color: white;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const FirstPage = () => {
+  const onClick = () => {
+    fetch("/auth/github");
+  };
   return (
     <div>
       <MainLogo />
-      <LoginBtn to="/signin">
-        <AiFillGithub size="24" />
+      <LoginBtn onClick={onClick} style={{ fontWeight: 500 }}>
+        <AiFillGithub size="24" style={{ marginRight: "5px" }} />
         Login With Github
       </LoginBtn>
     </div>

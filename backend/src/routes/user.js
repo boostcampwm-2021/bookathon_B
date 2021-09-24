@@ -23,28 +23,27 @@ const validateNickName = (nickName) => {
 	return regex.test(nickName);
 }
 
-
+// 현재 로그인 중인 사용자의 정보를 json으로 보내준다.
 router.get('/', (req, res) => {
-	const data = {
+	let data = {
 		email: null,
 		nickName: null,
 		userId: null
 	};
 	
 	if (req.user) {
-		data.isLogin = true;
 		const {
 			email, nickName, githubId: userId
 		} = req.user;
-		data = { email, nickName, userId };
 		
-		res.json(data);
+		data = { email, nickName, userId };
 	}
-	else{
-		res.json(data);
-	}
+	
+	res.json(data);
 });
 
+// 현재 로그인 중인 사용자의 이메일과 닉네임을 업데이트한다.
+// 성공적으로 업데이트되면, 업데이트된 유저의 정보를 보내준다.
 router.post('/edit', async (req, res) => {
 	if (!req.isAuthenticated()){
 		return res.status(401).json({
@@ -83,6 +82,7 @@ router.post('/edit', async (req, res) => {
 	});
 })
 
+// userId를 가진 유저의 최근 한달 커밋수가 담긴 배열을 json으로 보내준다.
 router.get('/:userId/commits', async (req, res) => {
 	const githubId = req.params.userId;
 	
