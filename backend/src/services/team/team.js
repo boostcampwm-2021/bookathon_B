@@ -2,6 +2,10 @@ const Team = require("../../models/team");
 
 const createTeam = async (req, res, next) => {
     try{
+        
+        if(req.body.password === undefined) req.body.password = null;
+        req.body.password === null ? req.body.isLocked = false : req.body.isLocked = true;
+        
         const result = await Team.create({...req.body});
         await res.status(201).json({
             code: '2001',
@@ -98,6 +102,7 @@ const enterTeam = async (req,res,next) => {
         const teamId = req.query['teamId'];
         const userId = req.query['userId'];
         const team = await Team.findById(teamId);
+        if(team.password !== null && team.password !== req.body.password) throw new Error("비밀번호가 일치하지 않습니다.");
         const userIds = [...team.userIds];
         userIds.push(userId);
         team.userIds = userIds;
