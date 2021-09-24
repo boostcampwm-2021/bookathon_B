@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const Title = styled.div`
   font-size: 24px;
@@ -83,10 +84,15 @@ const RadioButton = styled.input`
 
 const CreateStudy = () => {
   const [open, setOpen] = useState("Public");
-
+  const { register, handleSubmit } = useForm();
   const handleOpenChange = (event) => {
     const value = event.target.value;
     setOpen(value);
+  };
+
+  const onSubmit = (data) => {
+    data["isPrivate"] = open === "Private";
+    // data를 POST 요청에 담아 보내는 로직
   };
 
   return (
@@ -103,12 +109,16 @@ const CreateStudy = () => {
         <div style={{ marginBottom: "42px" }}>
           스터디를 만들어 스터디원들의 잔디를 관리해보세요!
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Label>Study Name</Label>
-          <Input type="text" style={{ width: "200px" }} />
+          <Input
+            type="text"
+            style={{ width: "200px" }}
+            {...register("title")}
+          />
           <Line />
           <Label>Description(Optional)</Label>
-          <Input type="text" />
+          <Input type="text" {...register("description")} />
           <Line />
           <RadioItem>
             <RadioButton
@@ -142,7 +152,11 @@ const CreateStudy = () => {
           {open === "Private" ? (
             <div>
               <Label>Password(if private)</Label>
-              <Input type="password" style={{ width: "200px" }} />
+              <Input
+                type="password"
+                style={{ width: "200px" }}
+                {...register("password")}
+              />
               <Line />
             </div>
           ) : null}
