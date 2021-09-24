@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyStudyCard from "../components/MyStudyCard";
 import ProfileCard from "../components/ProfileCard";
 import styled from "styled-components";
+import JandiBat from "../components/JandiBat";
 
 const MainWrapper = styled.div`
   display: flex;
@@ -52,17 +53,22 @@ const Main = ({ userObj }) => {
     return <CardSection>...Loading</CardSection>;
   }
   return (
-    <MainWrapper>
-      <ProfileCard userObj={userObj} />
-      <CardSection>
-        <h2>My Study</h2>
-        <CardList>
-          {studyArray.map((obj) => {
-            return <MyStudyCard key={obj._id} studyObj={obj} />;
-          })}
-        </CardList>
-      </CardSection>
-    </MainWrapper>
+    <>
+      <MainWrapper>
+        <ProfileCard userObj={userObj} />
+        <CardSection>
+          <h2>My Study</h2>
+          <CardList>
+            {studyArray.map((obj) => {
+              return <MyStudyCard key={obj._id} studyObj={obj} />;
+            })}
+          </CardList>
+        </CardSection>
+      </MainWrapper>
+      <div style={{ marginLeft: "100px" }}>
+        <JandiBat userId={userObj.userId} />
+      </div>
+    </>
   );
 };
 
