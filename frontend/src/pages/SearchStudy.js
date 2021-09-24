@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchResultCard from "../components/SearchResultCard";
 import styled from "styled-components";
-
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-
 const SearchStudy = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [title, setTitle] = useState("");
-
   useEffect(() => {
     async function getResult() {
       let result;
@@ -24,52 +21,39 @@ const SearchStudy = () => {
         console.log("error", err);
         result = [
           {
-            id: 1,
-            title: "잔디잔디",
-            description: "잔디를 길러봐",
-            isPrivate: true,
-            count: 3,
-            password: "12345",
+            _id: "a",
+            title: "제목 1",
+            details: "설명 1",
+            userIds: ["a", "b", "c"],
+            isLocked: true,
           },
           {
-            id: 2,
-            title: "잔디잔디잔디",
-            description: "잔디를 길러봐?",
-            isPrivate: false,
-            count: 3,
-            password: null,
+            _id: "b",
+            title: "제목 2",
+            details: "설명 2",
+            userIds: ["a", "b", "c", "d", "f"],
+            isLocked: false,
           },
           {
-            id: 3,
-            title: "잔디잔",
-            description: "잔디를 길러봐앙",
-            isPrivate: true,
-            count: 3,
-            password: "12345",
+            _id: "c",
+            title: "제목 3",
+            details: "설명 3",
+            userIds: ["a", "b", "c", "d"],
+            isLocked: false,
           },
           {
-            id: 4,
-            title: "잔잔디디",
-            description: "잔디를 길러봐아아?",
-            isPrivate: false,
-            count: 3,
-            password: null,
+            _id: "d",
+            title: "제목 4",
+            details: "설명 4",
+            userIds: ["a", "b", "c"],
+            isLocked: false,
           },
           {
-            id: 5,
-            title: "디잔디",
-            description: "잔디를 길러봐ba",
-            isPrivate: true,
-            count: 3,
-            password: "12345",
-          },
-          {
-            id: 6,
-            title: "잔잔잔",
-            description: "잔디를 길러봐bwa?",
-            isPrivate: false,
-            count: 3,
-            password: null,
+            _id: "e",
+            title: "제목 5",
+            details: "설명 5",
+            userIds: ["a", "b", "c"],
+            isLocked: true,
           },
         ];
       }
@@ -77,7 +61,6 @@ const SearchStudy = () => {
     }
     getResult();
   }, [title]);
-
   return (
     <div style={{ marginTop: "50px", marginBottom: "50px" }}>
       <SearchBar setTitle={setTitle} />
@@ -87,12 +70,11 @@ const SearchStudy = () => {
       <CardContainer>
         {searchResult
           ? searchResult.map((result) => (
-              <SearchResultCard key={result.id} data={result} />
+              <SearchResultCard key={result._id} data={result} />
             ))
           : null}
       </CardContainer>
     </div>
   );
 };
-
 export default SearchStudy;
