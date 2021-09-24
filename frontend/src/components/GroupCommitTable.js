@@ -41,33 +41,34 @@ const GroupCommitTable = (props) => {
   const [commitResult, setCommitResult] = useState([]);
 
   useEffect(() => {
-    function getResult() {
-      const result = [
-        {
-          userid: "ChanHoLee275",
-          username: "이찬호",
-          commit: 1,
-        },
-        {
-          userid: "gidskql6671",
-          username: "김동환",
-          commit: 2,
-        },
-        {
-          userid: "haesoo9410",
-          username: "윤해수",
-          commit: 3,
-        },
-        {
-          userid: "SeojinSeojin",
-          username: "김서진",
-          commit: 0,
-        },
-      ];
+    async function getResult() {
+      let result;
+      try {
+        result = await (await fetch(`/study/${groupId}/commits`)).json();
+      } catch (err) {
+        result = [
+          {
+            userId: "ChanHoLee275",
+            commit: 1,
+          },
+          {
+            userId: "gidskql6671",
+            commit: 2,
+          },
+          {
+            userId: "haesoo9410",
+            commit: 3,
+          },
+          {
+            userId: "SeojinSeojin",
+            commit: 0,
+          },
+        ];
+      }
       setCommitResult(result);
     }
     getResult();
-  }, []);
+  }, [groupId]);
 
   const handleSelect = (e) => {
     props.setSelectedUser(e.target.alt);
@@ -87,12 +88,12 @@ const GroupCommitTable = (props) => {
       </TableHead>
       <div style={{ display: "flex", overflowX: "scroll" }}>
         {commitResult.map((result) => {
-          const imageUrl = `https://github.com/${result.userid}.png`;
+          const imageUrl = `https://github.com/${result.userId}.png`;
           return (
             <TableColumn
-              key={result.username}
+              key={result.userId}
               style={
-                result.userid === props.selectedUser
+                result.userId === props.selectedUser
                   ? { color: "#DCF9E4" }
                   : result.commit === 0
                   ? { color: "#F15C5C" }
@@ -102,7 +103,7 @@ const GroupCommitTable = (props) => {
               <div>
                 <img
                   src={imageUrl}
-                  alt={result.userid}
+                  alt={result.userId}
                   onClick={handleSelect}
                 />
                 <div>{result.username}</div>
