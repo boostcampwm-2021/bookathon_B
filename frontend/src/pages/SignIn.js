@@ -53,6 +53,7 @@ const SignIn = () => {
     } catch (error) {
       console.error(error);
     }
+    window.location.href = "/";
   };
 
   return (

@@ -11,52 +11,58 @@ const SearchStudy = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [title, setTitle] = useState("");
   useEffect(() => {
-    async function getResult() {
-      let result;
-      try {
-        const url = title ? `/study?title=${title}` : "/study";
-        result = await (await fetch(url)).json();
-        console.log("result", result.study);
-      } catch (err) {
-        console.log("error", err);
-        result = [
-          {
-            _id: "a",
-            title: "제목 1",
-            details: "설명 1",
-            userIds: ["a", "b", "c"],
-            isLocked: true,
-          },
-          {
-            _id: "b",
-            title: "제목 2",
-            details: "설명 2",
-            userIds: ["a", "b", "c", "d", "f"],
-            isLocked: false,
-          },
-          {
-            _id: "c",
-            title: "제목 3",
-            details: "설명 3",
-            userIds: ["a", "b", "c", "d"],
-            isLocked: false,
-          },
-          {
-            _id: "d",
-            title: "제목 4",
-            details: "설명 4",
-            userIds: ["a", "b", "c"],
-            isLocked: false,
-          },
-          {
-            _id: "e",
-            title: "제목 5",
-            details: "설명 5",
-            userIds: ["a", "b", "c"],
-            isLocked: true,
-          },
-        ];
-      }
+    function getResult() {
+      const result = [
+        // 여기 나중에 API 호출하기!
+        {
+          _id: 1,
+          title: "잔디잔디",
+          description: "잔디를 길러봐",
+          isPrivate: true,
+          count: 3,
+          password: "12345",
+        },
+        {
+          _id: 2,
+          title: "잔디잔디잔디",
+          description: "잔디를 길러봐?",
+          isPrivate: false,
+          count: 3,
+          password: null,
+        },
+        {
+          _id: 3,
+          title: "잔디잔",
+          description: "잔디를 길러봐앙",
+          isPrivate: true,
+          count: 3,
+          password: "12345",
+        },
+        {
+          _id: 4,
+          title: "잔잔디디",
+          description: "잔디를 길러봐아아?",
+          isPrivate: false,
+          count: 3,
+          password: null,
+        },
+        {
+          _id: 5,
+          title: "디잔디",
+          description: "잔디를 길러봐ba",
+          isPrivate: true,
+          count: 3,
+          password: "12345",
+        },
+        {
+          _id: 6,
+          title: "잔잔잔",
+          description: "잔디를 길러봐bwa?",
+          isPrivate: false,
+          count: 3,
+          password: null,
+        },
+      ];
       setSearchResult(result);
     }
     getResult();
