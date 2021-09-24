@@ -64,8 +64,11 @@ const ProfileCard = ({ userObj }) => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch("auth/logout", {
+        fetch("/auth/logout", {
           method: "POST",
+        })
+        .then((_) => {
+          window.location.href = '/';
         });
       }
     });

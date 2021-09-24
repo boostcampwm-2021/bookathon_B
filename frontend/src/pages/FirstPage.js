@@ -21,16 +21,15 @@ const LoginBtn = styled.button`
 `;
 
 const FirstPage = () => {
-  const onClick = () => {
-    fetch("/auth/github");
-  };
   return (
     <div>
       <MainLogo />
-      <LoginBtn onClick={onClick} style={{ fontWeight: 500 }}>
-        <AiFillGithub size="24" style={{ marginRight: "5px" }} />
-        Login With Github
-      </LoginBtn>
+      <a href="/auth/github">
+        <LoginBtn style={{ fontWeight: 500 }}>
+          <AiFillGithub size="24" style={{ marginRight: "5px" }} />
+          Login With Github
+        </LoginBtn>
+      </a>
     </div>
   );
 };

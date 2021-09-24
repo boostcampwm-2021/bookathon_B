@@ -57,7 +57,7 @@ const Main = ({ userObj }) => {
       <CardSection>
         <h2>My Study</h2>
         <CardList>
-          {studyArray.map((obj) => {
+          {studyArray.study.map((obj) => {
             return <MyStudyCard key={obj._id} studyObj={obj} />;
           })}
         </CardList>
