@@ -19,9 +19,14 @@ router.delete('/:teamId',deleteTeam);
 router.get('/:teamId/commits', async (req, res) => {
     const teamId = req.params.teamId;
     
-    const data = await githubService.getCommitCountOfTeam(teamId);
-    
-    res.json(data);
+    try{
+        const data = await githubService.getCommitCountOfTeam(teamId);
+        
+        res.json(data);
+    }
+    catch(err) {
+        res.status(400).send(err.message);
+    }
 })
 
 module.exports = router;
