@@ -59,8 +59,6 @@ const sendMails = async (userIds) => {
         });
 
         userIds.forEach(el => {
-            console.log(el);
-            
             let mailOptions = {
                 from: email,
                 to: el,
