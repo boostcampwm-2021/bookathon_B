@@ -1,6 +1,5 @@
 const Team = require("../../models/team");
 const User = require("../../models/user");
-const fetch = require('node-fetch');
 const { getCommitCountOfTeam } = require("../github");
 const nodemailer = require('nodemailer');
 
@@ -22,7 +21,7 @@ const getUsersCommits = async (teamIds) => {
             const commits = await getCommitCountOfTeam(teamIds[i]);
             users.concat(commits);
         }
-        return users;
+        return users.filter(el => parseInt(el.commit) === 0).map(el => el.userId);
     }
     catch(err){
         console.error(err);
@@ -34,7 +33,7 @@ const getUsersEmail = async (users) => {
 
         const userIds = [];
         for(let i = 0; i < users.length; i++){
-            const user = User.find({githubId:`${users[i]}`});
+            const user = await User.find({githubId:`${users[i]}`});
             userIds.push(user.email);
         };
         return userIds;
