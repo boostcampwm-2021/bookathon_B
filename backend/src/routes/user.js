@@ -25,7 +25,7 @@ const validateNickName = (nickName) => {
 
 // 현재 로그인 중인 사용자의 정보를 json으로 보내준다.
 router.get('/', (req, res) => {
-	const data = {
+	let data = {
 		email: null,
 		nickName: null,
 		userId: null
