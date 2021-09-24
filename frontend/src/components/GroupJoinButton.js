@@ -29,7 +29,7 @@ const GroupJoinButton = (props) => {
       showCancelButton: true,
       preConfirm: (pw) => {
         if (pw === props.password) {
-          // 가입 성공
+          fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`).then((res) => (window.location.href = "/"));
         } else {
           MySwal.showValidationMessage(`비밀번호가 잘못되었습니다.`);
         }
@@ -44,14 +44,12 @@ const GroupJoinButton = (props) => {
       cancelButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed) {
-        // 가입 성공
+        fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`).then((res) => (window.location.href = "/"));
       }
     });
   }
   return (
-    <Button
-      onClick={props.isPrivate ? showPrivateJoinModal : showPublicJoinModal}
-    >
+    <Button onClick={props.isPrivate ? showPrivateJoinModal : showPublicJoinModal}>
       <AiOutlinePlusCircle width="24" color="#6BD746" />
       추가
     </Button>

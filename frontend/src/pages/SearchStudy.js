@@ -10,7 +10,7 @@ const CardContainer = styled.div`
   align-items: center;
 `;
 
-const SearchStudy = () => {
+const SearchStudy = ({ userObj }) => {
   const location = useLocation();
   const query = location.search;
   const parsedQuery = new URLSearchParams(query);
@@ -23,7 +23,7 @@ const SearchStudy = () => {
       const result = [
         // 여기 나중에 API 호출하기!
         {
-          id: 1,
+          _id: 1,
           title: "잔디잔디",
           description: "잔디를 길러봐",
           isPrivate: true,
@@ -31,7 +31,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
-          id: 2,
+          _id: 2,
           title: "잔디잔디잔디",
           description: "잔디를 길러봐?",
           isPrivate: false,
@@ -39,7 +39,7 @@ const SearchStudy = () => {
           password: null,
         },
         {
-          id: 3,
+          _id: 3,
           title: "잔디잔",
           description: "잔디를 길러봐앙",
           isPrivate: true,
@@ -47,7 +47,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
-          id: 4,
+          _id: 4,
           title: "잔잔디디",
           description: "잔디를 길러봐아아?",
           isPrivate: false,
@@ -55,7 +55,7 @@ const SearchStudy = () => {
           password: null,
         },
         {
-          id: 5,
+          _id: 5,
           title: "디잔디",
           description: "잔디를 길러봐ba",
           isPrivate: true,
@@ -63,7 +63,7 @@ const SearchStudy = () => {
           password: "12345",
         },
         {
-          id: 6,
+          _id: 6,
           title: "잔잔잔",
           description: "잔디를 길러봐bwa?",
           isPrivate: false,
@@ -79,18 +79,8 @@ const SearchStudy = () => {
   return (
     <div style={{ marginTop: "50px", marginBottom: "50px" }}>
       <SearchBar />
-      {searchWord ? (
-        <div style={{ marginTop: "20px" }}>
-          {searchWord}에 대한 검색 결과입니다.
-        </div>
-      ) : null}
-      <CardContainer>
-        {searchResult
-          ? searchResult.map((result) => (
-              <SearchResultCard key={result.id} data={result} />
-            ))
-          : null}
-      </CardContainer>
+      {searchWord ? <div style={{ marginTop: "20px" }}>{searchWord}에 대한 검색 결과입니다.</div> : null}
+      <CardContainer>{searchResult ? searchResult.map((result) => <SearchResultCard key={result._id} data={result} userObj={userObj} />) : null}</CardContainer>
     </div>
   );
 };
