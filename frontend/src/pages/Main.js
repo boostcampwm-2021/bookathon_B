@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MyStudyCard from "../components/MyStudyCard";
 import ProfileCard from "../components/ProfileCard";
 import styled from "styled-components";
+import JandiBat from "../components/JandiBat";
 
 const MainWrapper = styled.div`
   display: flex;
@@ -35,13 +36,15 @@ const Main = ({ userObj }) => {
       try {
         newArray = await (await fetch(`/study?userId=${userObj.userId}`)).json();
       } catch (error) {
-        newArray = [
-          { _id: "a", title: "제목 1", details: "설명 1", userIds: ["a", "b", "c"], isLocked: true },
-          { _id: "b", title: "제목 2", details: "설명 2", userIds: ["a", "b", "c", "d", "f"], isLocked: false },
-          { _id: "c", title: "제목 3", details: "설명 3", userIds: ["a", "b", "c", "d"], isLocked: false },
-          { _id: "d", title: "제목 4", details: "설명 4", userIds: ["a", "b", "c"], isLocked: false },
-          { _id: "e", title: "제목 5", details: "설명 5", userIds: ["a", "b", "c"], isLocked: true },
-        ];
+        newArray = {
+          study: [
+            { _id: "a", title: "제목 1", details: "설명 1", userIds: ["a", "b", "c"], isLocked: true },
+            { _id: "b", title: "제목 2", details: "설명 2", userIds: ["a", "b", "c", "d", "f"], isLocked: false },
+            { _id: "c", title: "제목 3", details: "설명 3", userIds: ["a", "b", "c", "d"], isLocked: false },
+            { _id: "d", title: "제목 4", details: "설명 4", userIds: ["a", "b", "c"], isLocked: false },
+            { _id: "e", title: "제목 5", details: "설명 5", userIds: ["a", "b", "c"], isLocked: true },
+          ],
+        };
       }
       setStudyArray(newArray);
       setLoading(false);
@@ -52,17 +55,22 @@ const Main = ({ userObj }) => {
     return <CardSection>...Loading</CardSection>;
   }
   return (
-    <MainWrapper>
-      <ProfileCard userObj={userObj} />
-      <CardSection>
-        <h2>My Study</h2>
-        <CardList>
-          {studyArray.study.map((obj) => {
-            return <MyStudyCard key={obj._id} studyObj={obj} />;
-          })}
-        </CardList>
-      </CardSection>
-    </MainWrapper>
+    <>
+      <MainWrapper>
+        <ProfileCard userObj={userObj} />
+        <CardSection>
+          <h2>My Study</h2>
+          <CardList>
+            {studyArray.study.map((obj) => {
+              return <MyStudyCard key={obj._id} studyObj={obj} />;
+            })}
+          </CardList>
+        </CardSection>
+      </MainWrapper>
+      <div style={{ marginLeft: "100px" }}>
+        <JandiBat userId={userObj.userId} />
+      </div>
+    </>
   );
 };
 
