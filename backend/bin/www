@@ -9,8 +9,6 @@ const debug = require('debug')('backend:server');
 const http = require('http');
 const mongoose = require('mongoose');
 
-require('dotenv').config();
-
 mongoose.connect(process.env.DATABASE_URL)
 .then(res => console.log("MongoDB Connected"))
 .catch(err => console.error(err));
