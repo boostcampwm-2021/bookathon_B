@@ -2,7 +2,7 @@ const axios = require('axios');
 const User = require('../models/user.js');
 const Team = require('../models/team.js');
 
-
+// Date 객체로부터 날짜를 추출해 반환함
 const parseDay = (inputDate) => {
     const year = inputDate.getFullYear();
     const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
@@ -12,14 +12,20 @@ const parseDay = (inputDate) => {
     return day;
 }
 
+// 특정 유저의 커밋 객체들의 배열을 반환한다.
+// since가 있다면, 해당 일자 이후의 커밋 객체를 가져온다.
 const getCommits = async ({ githubId, accessToken, since }) => {
+    if (typeof githubId === "undefined" || typeof accessToken === "undefined"){
+        throw new Error(`githubId 혹은 accessToken이 undefined입니다.`);
+    }
+    
     const repoInfos = await axios.get(`https://api.github.com/user/repos`,{
         headers: {
             Authorization: `token ${accessToken}`
         }
     });
-    
     const repos = repoInfos.data.map(ele => ele.name);
+    
     
     const commitInfos = await Promise.all(
         repos.map(repo => {
@@ -33,12 +39,15 @@ const getCommits = async ({ githubId, accessToken, since }) => {
             });
         })
     );
-    
     const commits = commitInfos.flatMap(commitInfo => commitInfo.data.flatMap(ele => ele.commit));
     
     return commits;
 }
 
+
+// 특정 유저의 최근 한달간 커밋수의 배열을 반환한다.
+// [{day: '2021-08-21', commit: 5}, {day: '2021-08-22', commit: 6}, ...]
+// 배열의 각 원소는 날짜순으로 정렬되어 있다.
 const getCommitCountsForMonth = async (githubId) => {
     const user = await User.findOne({ githubId }).exec();
     
@@ -47,8 +56,7 @@ const getCommitCountsForMonth = async (githubId) => {
     }
     
     const commitCounter = {};
-    const today = new Date();
-    const dayBeforeMonth = new Date(today);
+    const dayBeforeMonth = new Date();
     dayBeforeMonth.setDate(dayBeforeMonth.getDate() - 30);
     
     new Array(30).fill(0)
@@ -84,21 +92,27 @@ const getCommitCountsForMonth = async (githubId) => {
     return result;
 }
 
+// 특정 스터디방의 참가자들의 당일 커밋수의 배열을 반환한다.
+// [{userId: 'test1111', commit: 5}, {userId: 'test2222', commit: 6}, ...]
+// userId는 Database에 저장된 githubId이다.
 const getCommitCountOfTeam = async (teamId) => {
     const team = await Team.findById(teamId).exec();
+    if (!team) {
+        throw new Error('존재하지 않는 그룹입니다.');
+    }
+    
     const { userIds } = team;
     
     const since = new Date();
     since.setDate(since.getDate() - 1);
     
-    
     const commits = await Promise.all(
         userIds.map(async userId => {
             const user = await User.findOne({ githubId: userId }).exec();
-            
             if (!user){
                 return 0;
             }
+            
             const { githubId, accessToken } = user;
             
             const commits = await getCommits({ githubId, accessToken, since });
