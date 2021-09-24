@@ -9,7 +9,11 @@ const GroupDetail = () => {
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <div>{id}의 커밋 현황</div>
+      <div
+        style={{ marginTop: "40px", marginBottom: "32px", fontSize: "20px" }}
+      >
+        Today's Commit of {id}
+      </div>
       <GroupCommitTable
         groupId={id}
         selectedUser={selectedUser}
