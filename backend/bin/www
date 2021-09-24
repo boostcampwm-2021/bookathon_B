@@ -8,10 +8,19 @@ const app = require('../app');
 const debug = require('debug')('backend:server');
 const http = require('http');
 const mongoose = require('mongoose');
+const schedule = require('node-schedule');
+const {findAllTeams, getUsersCommits, getUsersEmail, sendMails} = require('../src/services/mail/mailAutoSender');
 
 mongoose.connect(process.env.DATABASE_URL)
 .then(res => console.log("MongoDB Connected"))
 .catch(err => console.error(err));
+
+const autoMailScheduler = schedule.scheduleJob('*/5 * * * * *', async () => {
+  const teamIds = await findAllTeams();
+  const users = await getUsersCommits(teamIds);
+  const userEmails = await getUsersEmail(users);
+  await sendMails(userEmails);
+});
 
 /**
  * Get port from environment and store in Express.
