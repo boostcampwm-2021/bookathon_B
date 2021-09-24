@@ -92,7 +92,6 @@ const CreateStudy = () => {
 
   const onSubmit = (data) => {
     data["isPrivate"] = open === "Private";
-    console.log(data);
   };
 
   return (

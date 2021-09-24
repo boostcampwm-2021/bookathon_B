@@ -16,11 +16,12 @@ const findAllTeams = async () => {
 
 const getUsersCommits = async (teamIds) => {
     try{
-        const users = [];
+        let users = [];
         for(let i = 0 ; i < teamIds.length; i++){
             const commits = await getCommitCountOfTeam(teamIds[i]);
-            users.concat(commits);
+            users = users.concat(commits);
         }
+        
         return users.filter(el => parseInt(el.commit) === 0).map(el => el.userId);
     }
     catch(err){
@@ -33,9 +34,10 @@ const getUsersEmail = async (users) => {
 
         const userIds = [];
         for(let i = 0; i < users.length; i++){
-            const user = await User.find({githubId:`${users[i]}`});
+            const user = await User.findOne({githubId:`${users[i]}`});
             userIds.push(user.email);
         };
+        
         return userIds;
     }
     catch(err){
@@ -57,7 +59,6 @@ const sendMails = async (userIds) => {
         });
 
         userIds.forEach(el => {
-            
             let mailOptions = {
                 from: email,
                 to: el,
