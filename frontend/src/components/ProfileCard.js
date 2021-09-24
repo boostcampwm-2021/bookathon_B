@@ -66,9 +66,8 @@ const ProfileCard = ({ userObj }) => {
       if (result.isConfirmed) {
         fetch("/auth/logout", {
           method: "POST",
-        })
-        .then((_) => {
-          window.location.href = '/';
+        }).then((_) => {
+          window.location.href = "/";
         });
       }
     });
@@ -81,8 +80,8 @@ const ProfileCard = ({ userObj }) => {
       </ProfileImg>
       <h2>{userObj.nickName}</h2>
       <h3>{userObj.userId}</h3>
-      <Link to="/search">Create Study</Link>
-      <Link to="/study/create">Join Study</Link>
+      <Link to="/study/create">Create Study</Link>
+      <Link to="/search">Join Study</Link>
     </Card>
   );
 };
