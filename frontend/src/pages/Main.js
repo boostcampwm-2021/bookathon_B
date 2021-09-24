@@ -3,10 +3,16 @@ import MyStudyCard from "../components/MyStudyCard";
 import ProfileCard from "../components/ProfileCard";
 import styled from "styled-components";
 
+const MainWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10vh;
+`;
+
 const CardSection = styled.section`
   width: 70vw;
   max-width: 1000px;
-  margin: 20px 100px 0 80px;
+  margin: 20px 0 0 100px;
   h2 {
     font-weight: 600;
     text-align: left;
@@ -46,7 +52,7 @@ const Main = ({ userObj }) => {
     return <CardSection>...Loading</CardSection>;
   }
   return (
-    <div style={{ margin: "80px 0 0 80px", display: "flex" }}>
+    <MainWrapper>
       <ProfileCard userObj={userObj} />
       <CardSection>
         <h2>My Study</h2>
@@ -56,7 +62,7 @@ const Main = ({ userObj }) => {
           })}
         </CardList>
       </CardSection>
-    </div>
+    </MainWrapper>
   );
 };
 
