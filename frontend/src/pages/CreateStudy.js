@@ -92,7 +92,7 @@ const CreateStudy = () => {
 
   const onSubmit = (data) => {
     data["isPrivate"] = open === "Private";
-    // data를 POST 요청에 담아 보내는 로직
+    console.log(data);
   };
 
   return (
