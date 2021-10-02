@@ -7,7 +7,7 @@ const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const SearchStudy = () => {
+const SearchStudy = ({userObj}) => {
   const [searchResult, setSearchResult] = useState([]);
   const [title, setTitle] = useState("");
   useEffect(() => {
@@ -31,7 +31,7 @@ const SearchStudy = () => {
       <CardContainer>
         {searchResult
           ? searchResult.map((result) => (
-              <SearchResultCard key={result._id} data={result} />
+              <SearchResultCard key={result._id} data={result} userObj={userObj}/>
             ))
           : null}
       </CardContainer>
