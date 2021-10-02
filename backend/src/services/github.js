@@ -65,6 +65,7 @@ const getCommitCountsForMonth = async (githubId) => {
     const commitCounter = {};
     const dayBeforeMonth = new Date();
     dayBeforeMonth.setDate(dayBeforeMonth.getDate() - 30);
+    dayBeforeMonth.setHours(dayBeforeMonth.getHours() + 9);
     
     new Array(30).fill(0)
     .forEach((_, index) => {
@@ -112,6 +113,7 @@ const getCommitCountOfTeam = async (teamId) => {
     
     const since = new Date();
     since.setDate(since.getDate() - 1);
+    since.setHours(since.getHours() + 9);
     
     const commits = await Promise.all(
         userIds.map(async userId => {
@@ -122,7 +124,7 @@ const getCommitCountOfTeam = async (teamId) => {
             
             const { githubId, accessToken } = user;
             
-            const commits = await getCommits({ githubId, accessToken, since });
+            const commits = await getCommits({ githubId, accessToken, since: since.toISOString() });
             
             return {userId: userId, commit: commits.length};
         })
