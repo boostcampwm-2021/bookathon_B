@@ -7,5 +7,11 @@
   "workspaces": [
     "frontend",
     "backend"
-  ]
+  ],
+  "scripts": {
+    "build": "cd ./frontend && yarn build",
+    
+    "prestart": "yarn build",
+    "start": "cd ./backend && yarn start"
+  }
 }
