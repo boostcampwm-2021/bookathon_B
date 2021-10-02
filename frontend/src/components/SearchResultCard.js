@@ -42,6 +42,8 @@ const SearchResultCard = (props) => {
         {props.data.isLocked ? <AiFillLock size="24" /> : null}
       </div>
       <GroupJoinButton
+        id={props.data._id}
+        userObj={props.userObj}
         password={props.data.password}
         isPrivate={props.data.isLocked}
       />
