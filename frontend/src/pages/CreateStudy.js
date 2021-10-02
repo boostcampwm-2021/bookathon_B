@@ -82,7 +82,7 @@ const RadioButton = styled.input`
   }
 `;
 
-const CreateStudy = () => {
+const CreateStudy = ({ userObj }) => {
   const [open, setOpen] = useState("Public");
   const { register, handleSubmit } = useForm();
   const handleOpenChange = (event) => {
@@ -90,8 +90,22 @@ const CreateStudy = () => {
     setOpen(value);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data["isPrivate"] = open === "Private";
+    data["userIds"] = [ userObj.userId ];
+    
+    try {
+      await fetch("/study", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
+      })
+      .then(() => window.location.href = '/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
