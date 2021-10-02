@@ -74,7 +74,11 @@ const searchTeams = async (req, res, next) => {
         let teams;
 
         if(title !== undefined && userId === undefined) teams = await Team.find({title:  new RegExp(`${title}`,'i')}).exec();
-        else if(title === undefined && userId !== undefined) teams = await Team.find({userIds : [`${userId}`]}).exec();
+        else if(title === undefined && userId !== undefined) {
+            teams = await Team.find()
+                              .where('userIds').in([`${userId}`])
+                              .exec();
+        }
         else if(title === undefined && userId === undefined) teams = await Team.find({});
         else{
             throw new Error("query로 보내는 변수가 잘못되었습니다.");
