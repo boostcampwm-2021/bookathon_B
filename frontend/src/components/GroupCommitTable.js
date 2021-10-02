@@ -41,32 +41,14 @@ const GroupCommitTable = (props) => {
   const [commitResult, setCommitResult] = useState([]);
 
   useEffect(() => {
-    async function getResult() {
-      let result;
-      try {
-        result = await (await fetch(`/study/${groupId}/commits`)).json();
-      } catch (err) {
-        result = [
-          {
-            userId: "ChanHoLee275",
-            commit: 1,
-          },
-          {
-            userId: "gidskql6671",
-            commit: 2,
-          },
-          {
-            userId: "haesoo9410",
-            commit: 3,
-          },
-          {
-            userId: "SeojinSeojin",
-            commit: 0,
-          },
-        ];
-      }
-      setCommitResult(result);
+    function getResult() {
+      
+      fetch(`/study/${groupId}/commits`)
+      .then(res => res.json())
+      .then(data => setCommitResult(data))
+      .catch(err => setCommitResult([]))
     }
+    
     getResult();
   }, [groupId]);
 
