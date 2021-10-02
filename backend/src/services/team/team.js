@@ -105,7 +105,7 @@ const enterTeam = async (req,res,next) => {
     try{
         const teamId = req.query['teamId'];
         const userId = req.query['userId'];
-        const team = await Team.findById(teamId);
+        const team = await Team.findById(teamId).exec();
         if(team.password !== null && team.password !== req.body.password) throw new Error("비밀번호가 일치하지 않습니다.");
         const userIds = [...team.userIds];
         userIds.push(userId);
