@@ -49,11 +49,11 @@ const SignIn = () => {
           "Content-Type": "application/json;charset=utf-8",
         },
         body: JSON.stringify({ email, nickName }),
-      });
+      })
+      .then(() => window.location.href = '/');
     } catch (error) {
       console.error(error);
     }
-    window.location.href = "/";
   };
 
   return (
