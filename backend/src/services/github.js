@@ -24,21 +24,28 @@ const getCommits = async ({ githubId, accessToken, since }) => {
             Authorization: `token ${accessToken}`
         }
     });
-    const repos = repoInfos.data.map(ele => ele.name);
+	const repos = repoInfos.data.map(ele => ele.full_name);
     
     
-    const commitInfos = await Promise.all(
+    const commitInfos = (await Promise.all(
         repos.map(repo => {
-            return axios.get(`https://api.github.com/repos/${githubId}/${repo}/commits`,{
-                headers: {
-                    Authorization: `token ${accessToken}`
-                },
-                params: {
-                    since
-                }
-            });
+            const link = `https://api.github.com/repos/${repo}/commits`
+            try {
+                return axios.get(link,{
+                    headers: {
+                        Authorization: `token ${accessToken}`
+                    },
+                    params: {
+                        since
+                    }
+                });
+            }
+            catch (err) {
+                return null;
+            }
         })
-    );
+    )).filter(ele => ele);
+    
     const commits = commitInfos.flatMap(commitInfo => commitInfo.data.flatMap(ele => ele.commit));
     
     return commits;
