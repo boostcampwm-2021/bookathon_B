@@ -29,7 +29,9 @@ const GroupJoinButton = (props) => {
       showCancelButton: true,
       preConfirm: (pw) => {
         if (pw === props.password) {
-          fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`).then((res) => (window.location.href = "/"));
+          fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`, {
+            method: "PUT"
+          }).then((res) => (window.location.href = "/"));
         } else {
           MySwal.showValidationMessage(`비밀번호가 잘못되었습니다.`);
         }
@@ -44,7 +46,12 @@ const GroupJoinButton = (props) => {
       cancelButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`).then((res) => (window.location.href = "/"));
+        fetch(`/study/enter?teamId=${props.id}&&userId=${props.userObj.userId}`, {
+          method: "PUT"
+        })
+        .then((res) => {
+          window.location.href = "/"
+        });
       }
     });
   }
