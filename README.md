@@ -1,5 +1,7 @@
 # 자라나라 잔디잔디
 ~~바로가기~~ 배포 서버 중단
+## 데모
+<img src="https://blog.kakaocdn.net/dn/vYY7V/btrfXxIFwJk/oEOV0KBLEsllYJsHzjK5a1/img.gif" />
 
 ## 참여
 
