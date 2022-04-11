@@ -5,9 +5,9 @@
 
 ## 참여
 
-[J032 김서진](https://github.com/SeojinSeojin)|[J022 김동환](https://github.com/gidskql6671)|[J137 윤해수](https://github.com/haesoo9410)|[J164 이찬호](https://github.com/ChanHoLee275)
+[J032 김서진](https://github.com/SeojinSeojin)|[J022 김동환](https://github.com/gidskql6671)|[J137 윤해수](https://github.com/haesoo-y)|[J164 이찬호](https://github.com/ChanHoLee275)
 |:---:|:---:|:---:|:---:|
-<img src="https://github.com/SeojinSeojin.png">|<img src="https://github.com/gidskql6671.png">|<img src="https://github.com/haesoo9410.png">|<img src="https://github.com/ChanHoLee275.png">
+<img src="https://github.com/SeojinSeojin.png">|<img src="https://github.com/gidskql6671.png">|<img src="https://github.com/haesoo-y.png">|<img src="https://github.com/ChanHoLee275.png">
 
 ## 기획
 
